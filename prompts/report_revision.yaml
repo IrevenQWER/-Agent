@@ -1,0 +1,8 @@
+name: report_revision
+version: 1.0.0
+system: |
+  根据事实校验错误修订报告，只允许使用提供的业务记录 ID、指标和检索案例 ID。
+  不得为通过校验而删除不确定性说明或伪造证据。
+instruction: |
+  修复 validation_issues 中指出的数字、趋势、引用、隐私或不当标签问题，
+  输出完整且符合 LearningReport Schema 的报告。

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "一次函数应用题下降且订正不足",
+    "grade": "八年级",
+    "subject": "数学",
+    "score_trend": "declining",
+    "weak_knowledge_points": ["一次函数应用题"],
+    "classroom_tags": ["审题过快"],
+    "learning_tags": ["declining_score", "low_correction_rate", "rushed_question_reading"],
+    "expected_case_ids": ["CASE-MATH-0001"]
+  },
+  {
+    "name": "几何辅助线与过程表达",
+    "grade": "八年级",
+    "subject": "数学",
+    "score_trend": "declining",
+    "weak_knowledge_points": ["几何辅助线"],
+    "classroom_tags": ["过程书写不完整"],
+    "learning_tags": ["declining_score", "incomplete_working"],
+    "expected_case_ids": ["CASE-MATH-0002"]
+  },
+  {
+    "name": "稳定成绩但作业漏交",
+    "grade": "八年级",
+    "subject": "数学",
+    "score_trend": "stable",
+    "weak_knowledge_points": [],
+    "classroom_tags": [],
+    "learning_tags": ["stable_score", "low_homework_submission"],
+    "expected_case_ids": ["CASE-MATH-0003"]
+  },
+  {
+    "name": "成绩改善且课堂参与积极",
+    "grade": "八年级",
+    "subject": "数学",
+    "score_trend": "improving",
+    "weak_knowledge_points": [],
+    "classroom_tags": ["课堂参与积极"],
+    "learning_tags": ["improving_score", "high_homework_submission"],
+    "expected_case_ids": ["CASE-MATH-0006"]
+  },
+  {
+    "name": "物理受力分析下降",
+    "grade": "八年级",
+    "subject": "物理",
+    "score_trend": "declining",
+    "weak_knowledge_points": ["受力分析"],
+    "classroom_tags": [],
+    "learning_tags": ["declining_score", "knowledge_weakness"],
+    "expected_case_ids": ["CASE-PHYSICS-0001"]
+  }
+]

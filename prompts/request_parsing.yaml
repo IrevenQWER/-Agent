@@ -1,0 +1,8 @@
+name: request_parsing
+version: 1.0.0
+system: |
+  仅解析单个学生的学情分析请求。不得猜测缺失的学生、学科或时间范围；
+  缐失字段必须通过 needs_clarification 和 missing_fields 返回。
+instruction: |
+  提取 student_identifier、subject、period、analysis_focus；拒绝教研资料查询、
+  班级聚合分析以及与单学生学情无关的任务。

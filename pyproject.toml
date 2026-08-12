@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "futureedu-learning-insight"
+version = "0.1.0"
+description = "基于多源学情数据与案例增强生成的学生学情分析 Agent"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "fastapi==0.135.3",
+  "httpx>=0.28,<1",
+  "langgraph==1.2.9",
+  "mcp>=1.28,<2",
+  "numpy>=2.0,<3",
+  "pydantic>=2.11,<3",
+  "pydantic-settings>=2.10,<3",
+  "pyyaml>=6.0,<7",
+  "rank-bm25>=0.2.2,<0.3",
+  "sqlalchemy>=2.0,<3",
+  "uvicorn[standard]>=0.35,<1",
+]
+
+[project.optional-dependencies]
+rag = ["pybase64>=1.4.1", "chromadb==1.5.9"]
+ui = ["gradio>=5,<7"]
+worker = ["celery>=5.5,<6", "redis>=6,<7"]
+observability = ["langfuse>=3,<4", "opentelemetry-sdk>=1.35,<2"]
+dev = [
+  "pytest>=8.4,<10",
+  "pytest-asyncio>=1.1,<2",
+  "pytest-cov>=6,<8",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+futureedu-api = "futureedu_insight.api.main:run"
+futureedu-seed = "futureedu_insight.infrastructure.seed:main"
+futureedu-eval = "futureedu_insight.evaluation.runner:main"
+futureedu-mcp = "futureedu_insight.mcp_server:main"
+futureedu-ui = "futureedu_insight.ui.gradio_app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/futureedu_insight"]
+
+[tool.pytest.ini_options]
+testpaths = ["Tests"]
+pythonpath = ["src"]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+  "ignore:Using `httpx` with `starlette.testclient` is deprecated.*:starlette.exceptions.StarletteDeprecationWarning",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "Tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501", "RUF001"]
+
+[tool.ruff.lint.per-file-ignores]
+"Tests/*_test.py" = ["E402", "F401", "I001"]
+"Tests/data_tests.py" = ["I001"]

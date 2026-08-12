@@ -1,0 +1,44 @@
+services:
+  api:
+    build: .
+    environment:
+      APP_API_HOST: 0.0.0.0
+      APP_DATABASE_PATH: /app/runtime/futureedu.db
+      APP_CHROMA_PATH: /app/runtime/chroma
+      APP_CASES_PATH: /app/data/cases
+      APP_REPORT_PROMPT_PATH: /app/prompts/report_generation.yaml
+      APP_MODEL_PROVIDER: ${APP_MODEL_PROVIDER:-deterministic}
+      APP_MODEL_NAME: ${APP_MODEL_NAME:-demo}
+      APP_MODEL_BASE_URL: ${APP_MODEL_BASE_URL:-http://host.docker.internal:11434}
+      APP_MODEL_API_KEY: ${APP_MODEL_API_KEY:-}
+      APP_MODEL_TIMEOUT_SECONDS: ${APP_MODEL_TIMEOUT_SECONDS:-300}
+      APP_LEARNING_DATA_BACKEND: local
+    volumes:
+      - futureedu-runtime:/app/runtime
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://127.0.0.1:8000/health').raise_for_status()"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  ui:
+    build: .
+    command: ["futureedu-ui"]
+    environment:
+      FUTUREEDU_API_URL: http://api:8000
+      FUTUREEDU_UI_HOST: 0.0.0.0
+      FUTUREEDU_UI_PORT: 7860
+      FUTUREEDU_UI_WAIT_SECONDS: ${FUTUREEDU_UI_WAIT_SECONDS:-300}
+      FUTUREEDU_UI_POLL_INTERVAL_SECONDS: ${FUTUREEDU_UI_POLL_INTERVAL_SECONDS:-1}
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "7860:7860"
+
+volumes:
+  futureedu-runtime:
